@@ -5,6 +5,7 @@ from google.oauth2.credentials import Credentials
 
 import os.path
 import datetime
+import datefinder
 
 
 SCOPES = ['https://www.googleapis.com/auth/calendar.events']
@@ -36,10 +37,14 @@ def main():
     times = []
     
     for event in events['items']:
-        time = (event['start']['dateTime'], event['end']['dateTime'])
+        start_object = datetime.datetime.strptime(event['start']['dateTime'][0:19], "%Y-%m-%dT%H:%M:%S")
+        end_object = datetime.datetime.strptime(event['end']['dateTime'][0:19], "%Y-%m-%dT%H:%M:%S")
+        time = (start_object, end_object)
         times.append(time)
     
-    print(times)
+    for i in range(1, len(times)):
+        break_time = (times[i][0] - times[i-1][1]).total_seconds() / 60
+        print(break_time)
 
 # Go through list of start/end times and calculate amount of time between each event. Depending on this number, call the create_event()
 # function, passing in specific arguments based on the type of break we want to create
