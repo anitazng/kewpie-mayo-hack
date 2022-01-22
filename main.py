@@ -28,8 +28,18 @@ def main():
     
     service = build('calendar', 'v3', credentials=creds)
 
-# Get events from calendar and create list of start/end times
+    # Get primary calendar  
+    calendar = service.calendarList().list().execute
 
+    # Get events from calendar and create list of start/end times
+    events = service.events().list(calendarId="kewpiemayohacks@gmail.com").execute()
+    times = []
+    
+    for event in events['items']:
+        time = (event['start']['dateTime'], event['end']['dateTime'])
+        times.append(time)
+    
+    print(times)
 
 # Go through list of start/end times and calculate amount of time between each event. Depending on this number, call the create_event()
 # function, passing in specific arguments based on the type of break we want to create
