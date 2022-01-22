@@ -1,6 +1,10 @@
 # Mac
 .DS_Store
 
+# Client Secrets
+client_secret.json
+token.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
