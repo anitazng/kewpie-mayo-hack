@@ -6,7 +6,6 @@ from google.oauth2.credentials import Credentials
 import os.path
 import datetime
 
-
 SCOPES = ['https://www.googleapis.com/auth/calendar.events']
 
 def create_event(service, summary, start, end):
@@ -59,6 +58,7 @@ def main():
     times_objects = []
     
     for event in events['items']:
+        print(event['summary'])
         times.append((event['start'], event['end']))
         start_object = datetime.datetime.strptime(event['start']['dateTime'][0:19], "%Y-%m-%dT%H:%M:%S")
         end_object = datetime.datetime.strptime(event['end']['dateTime'][0:19], "%Y-%m-%dT%H:%M:%S")
@@ -83,7 +83,7 @@ def main():
         elif break_time >= 20 and break_time < 30:
             end = times_objects[i-1][1] + datetime.timedelta(seconds=1200)
             create_event(service, 'Go for a walk 🌿', times_objects[i-1][1].strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"), end.strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"))
-        else:
+        elif break_time >= 30:
             end = times_objects[i-1][1] + datetime.timedelta(seconds=1800)
             create_event(service, 'Read 📚', times_objects[i-1][1].strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"), end.strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"))
 
