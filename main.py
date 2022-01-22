@@ -2,7 +2,6 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
-from googleapiclient.errors import HttpError
 
 import os.path
 import datetime
@@ -27,28 +26,13 @@ def main():
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
     
-    try:
-        service = build('calendar', 'v3', credentials=creds)
+    service = build('calendar', 'v3', credentials=creds)
 
-        # Call the Calendar API
-        now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
-        print('Getting the upcoming 10 events')
-        events_result = service.events().list(calendarId='primary', timeMin=now,
-                                              maxResults=10, singleEvents=True,
-                                              orderBy='startTime').execute()
-        events = events_result.get('items', [])
+# Get events from calendar and create list of start/end times
 
-        if not events:
-            print('No upcoming events found.')
-            return
 
-        # Prints the start and name of the next 10 events
-        for event in events:
-            start = event['start'].get('dateTime', event['start'].get('date'))
-            print(start, event['summary'])
-
-    except HttpError as error:
-        print('An error occurred: %s' % error)
+# Go through list of start/end times and calculate amount of time between each event. Depending on this number, call the create_event()
+# function, passing in specific arguments based on the type of break we want to create
 
 
 if __name__ == '__main__':
