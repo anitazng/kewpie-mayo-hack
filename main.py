@@ -33,7 +33,10 @@ def main():
     calendar = service.calendarList().list().execute
 
     # Get events from calendar and create list of start/end times
-    events = service.events().list(calendarId="kewpiemayohacks@gmail.com").execute()
+    end_day = datetime.datetime.combine(datetime.datetime.now(), datetime.time.max)
+    formatted_end_day = end_day.strftime("%Y-%m-%dT%H:%M:%S" + "-05:00")
+    formatted_start_day = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S" + "-05:00")
+    events = service.events().list(calendarId="kewpiemayohacks@gmail.com", timeMin=formatted_start_day, timeMax=formatted_end_day).execute()
     times = []
     
     for event in events['items']:
@@ -41,6 +44,8 @@ def main():
         end_object = datetime.datetime.strptime(event['end']['dateTime'][0:19], "%Y-%m-%dT%H:%M:%S")
         time = (start_object, end_object)
         times.append(time)
+
+    # print(times)
     
     for i in range(1, len(times)):
         break_time = (times[i][0] - times[i-1][1]).total_seconds() / 60
