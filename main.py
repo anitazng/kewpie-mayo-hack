@@ -11,6 +11,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar.events']
 def create_event(service, summary, start, end):
     event = {
     'summary': summary,
+    'colorId':1,
     'start': {
         'dateTime': start,
         'timeZone': 'America/New_York',
