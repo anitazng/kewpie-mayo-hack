@@ -59,7 +59,6 @@ def main():
     times_objects = []
     
     for event in events['items']:
-        print(event['summary'])
         times.append((event['start'], event['end']))
         start_object = datetime.datetime.strptime(event['start']['dateTime'][0:19], "%Y-%m-%dT%H:%M:%S")
         end_object = datetime.datetime.strptime(event['end']['dateTime'][0:19], "%Y-%m-%dT%H:%M:%S")
