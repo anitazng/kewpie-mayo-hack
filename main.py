@@ -2,6 +2,7 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
+from random import choice
 
 import os.path
 import datetime
@@ -84,8 +85,17 @@ def main():
             end = times_objects[i-1][1] + datetime.timedelta(seconds=1200)
             create_event(service, 'Go for a walk 🌿', times_objects[i-1][1].strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"), end.strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"))
         elif break_time >= 30:
-            end = times_objects[i-1][1] + datetime.timedelta(seconds=1800)
-            create_event(service, 'Read 📚', times_objects[i-1][1].strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"), end.strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"))
+            possibities = [1,2,3]
+            outcome = choice(possibities)
+            if outcome == 1:
+                end = times_objects[i-1][1] + datetime.timedelta(seconds=900)
+                create_event(service, 'Meditate 🧘<200d>♀', times_objects[i-1][1].strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"), end.strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"))
+            elif outcome == 2:
+                end = times_objects[i-1][1] + datetime.timedelta(seconds=300)
+                create_event(service, 'Drink Water 💧', times_objects[i-1][1].strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"), end.strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"))
+            else:
+                end = times_objects[i-1][1] + datetime.timedelta(seconds=1800)
+                create_event(service, 'Read 📚', times_objects[i-1][1].strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"), end.strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"))
 
 if __name__ == '__main__':
     main()
