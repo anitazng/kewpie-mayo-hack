@@ -89,7 +89,7 @@ def main():
             outcome = choice(possibities)
             if outcome == 1:
                 end = times_objects[i-1][1] + datetime.timedelta(seconds=900)
-                create_event(service, 'Meditate 🧘<200d>♀', times_objects[i-1][1].strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"), end.strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"))
+                create_event(service, 'Meditate 🧘‍♀️', times_objects[i-1][1].strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"), end.strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"))
             elif outcome == 2:
                 end = times_objects[i-1][1] + datetime.timedelta(seconds=300)
                 create_event(service, 'Drink Water 💧', times_objects[i-1][1].strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"), end.strftime("%Y-%m-%dT%H:%M:%S" + "-05:00"))
